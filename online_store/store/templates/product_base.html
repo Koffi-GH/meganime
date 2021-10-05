@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+
+    <button onclick="goBack()" class="btn btn-dark">
+        &#x2190; Previous Page
+    </button>
+    
+    <br>
+    <br>
+
+    <div class="box-element" style="border-radius: 6px;">
+        <div class="row">
+            <div class="col-lg-6">
+                <div>
+                    <img class="detail-thumbnail" src="{{highlighted_product.image_url}}">
+                </div>
+            </div>
+    
+            <div class="col-lg-6">
+                <h3><strong>{{highlighted_product.name}}</strong></h3>
+                <br><hr>
+                <h4><strong>${{highlighted_product.price|floatformat:2}}</strong></h4>
+                <br><br>    
+                <div>
+                    <!-- ADD BELOW IN NEXT VERSION -->
+                    <!-- <strong class="detail-quantity">x1</strong>
+                    <div class="detail-quantity">
+                        <img class="cart-arrow" style="display: block; margin-bottom: 5px;" src="{% static 'images/arrow-up.png' %}">
+                        <img class="cart-arrow" style="display: block;" src="{% static 'images/arrow-down.png' %}">
+                    </div> -->
+                </div>     
+                <br><hr><br>
+                <p>Add blurb here (max 600 characters with punctuation)</p>
+            </div>            
+        </div>
+        <br><br>
+        <hr><br>
+        <div class="row">
+            <button data-product={{highlighted_product.id}} data-action="add" data-quantity="1" class="btn btn-success btn-lg detail-cart add-btn update-cart" >
+                Add to Cart
+            </button>
+        </div>
+    </div>
+    <br>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    {% block product_content %}
+
+    {% endblock product_content %}
+
+
+{% endblock content %}

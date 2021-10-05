@@ -1,0 +1,63 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+            <div style="border-radius: 6px;" class="box-element">
+                <H4>YOUR CART</H4>
+                <hr>
+                
+                <div class="cart-header">
+                    <div style="flex: 2;"></div>
+                    <div style="flex: 3;"></div>
+                    <div style="flex: 1; text-align: center;">Quantity</div>
+                    <div style="flex: 1; text-align: center;">Price</div>
+                </div>
+
+                {% for item in items %}
+                    <div class="cart-row">
+                        <div style="flex: 2;">
+                            <img class="cart-thumbnail" src="{{item.product.image_url}}">
+                        </div>
+                        <div style="flex: 3;" class="cart-row-line">
+                            <strong>{{item.product.name}}</strong>
+                            <p>${{item.product.price|floatformat:2}}</p>
+                        </div>
+                        <div style="flex: 1; text-align: center;" class="cart-row-line">
+                            <img data-product={{item.product.id}} data-action="remove" data-quantity="1" class="cart-arrow remove-btn update-cart" src="{% static 'images/arrow-down.png' %}">
+                            {{item.quantity}}
+                            <img data-product={{item.product.id}} data-action="add" data-quantity="1" class="cart-arrow add-btn update-cart" src="{% static 'images/arrow-up.png' %}">
+                        </div>
+                        <div style="flex: 1; text-align: center;" class="cart-row-line"><strong>${{item.cart_price|floatformat:2}}</strong></div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    
+        <div class="col-4">
+            <div style="border-radius: 6px;" class="box-element">
+                <h4>ORDER AT-A-GLANCE</h4>
+                <hr>
+                <table>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>${{order.order_subtotal|floatformat:2}}</td>
+                    </tr>
+                    <tr>
+                        <td>Item(s):</td>
+                        <td>{{order.items_in_cart}}</td>
+                    </tr>
+                </table>
+
+                <hr>
+                <a href="{% url 'checkout' %}">
+                    <button class="btn btn-success btn-block">Checkout</button>
+                </a>
+            </div>
+        </div>
+    </div>
+  
+{% endblock content %}
